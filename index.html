@@ -1,28 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Menuju Tautan...</title>
+    <style>
+        .safelink-container {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            padding: 20px;
+        }
+        .btn-redirect {
+            display: none;
+            background-color: #1877f2;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .countdown-text {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="safelink-container">
+    <h2>Keamanan Tautan Terverifikasi</h2>
+    <p class="countdown-text">Halaman aman sedang disiapkan. Silakan tunggu <span id="waktu">5</span> detik...</p>
+    
+    <!-- Tombol manual aman -->
+    <a id="tombolTujuan" class="btn-redirect" href="#">Lanjutkan ke Situs Utama</a>
+</div>
+
 <script>
+    // 1. Ambil kode acak Base64 dari parameter '?url='
     const urlParams = new URLSearchParams(window.location.search);
-    const urlTujuan = urlParams.get('url');
+    const kodeBase64 = urlParams.get('url');
 
-    if (urlTujuan) {
-        let hitung = 5;
-        const elemenWaktu = document.getElementById('waktu');
-        const elemenTombol = document.getElementById('tombolTujuan');
-        
-        elemenTombol.href = urlTujuan;
+    if (kodeBase64) {
+        try {
+            // 2. Terjemahkan kode acak menjadi URL asli (Dekripsi)
+            const urlTujuan = window.atob(kodeBase64);
+            
+            let hitung = 5;
+            const elemenWaktu = document.getElementById('waktu');
+            const elemenTombol = document.getElementById('tombolTujuan');
+            
+            // Masukkan URL asli ke tombol
+            elemenTombol.href = urlTujuan;
 
-        const interval = setInterval(() => {
-            hitung--;
-            elemenWaktu.innerText = hitung;
+            const interval = setInterval(() => {
+                hitung--;
+                elemenWaktu.innerText = hitung;
 
-            if (hitung <= 0) {
-                clearInterval(interval);
-                // Sembunyikan teks hitung mundur
-                document.querySelector('.countdown-text').style.display = 'none';
-                // Munculkan tombol klik secara penuh dan menarik
-                elemenTombol.style.display = 'inline-block';
-                elemenTombol.innerText = "Lanjutkan ke Situs Utama";
-            }
-        }, 1000);
+                if (hitung <= 0) {
+                    clearInterval(interval);
+                    // Sembunyikan teks hitung mundur
+                    document.querySelector('.countdown-text').style.display = 'none';
+                    // Tampilkan tombol tujuan secara aman
+                    elemenTombol.style.display = 'inline-block';
+                }
+            }, 1000);
+            
+        } catch (e) {
+            // Jika kode Base64 rusak atau tidak valid
+            document.querySelector('.safelink-container').innerHTML = '<h2>Error: Format tautan tidak valid!</h2>';
+        }
     } else {
-        document.querySelector('.safelink-container').innerHTML = '<h2>Error: Tautan tidak valid!</h2>';
+        document.querySelector('.safelink-container').innerHTML = '<h2>Error: Tautan tujuan tidak ditemukan!</h2>';
     }
 </script>
+
+</body>
+</html>
