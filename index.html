@@ -1,81 +1,66 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Menuju Tautan...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="noindex">
+    <title>  Loading...</title>
+    <meta http-equiv="refresh" content="0;url=https://www.youtube.com/">
+
     <style>
-        .safelink-container {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
-            padding: 20px;
+        body {
+        background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhiYjKIw2ffU1pbgie7e16_igzRlqhmvK3ahvFjdIh6XHzWngMklVVWvnyU6S6bxZhHWWYLChZUof1erWxcTHQCDCgwA_5LB6pHgp0J1fVCrSvt2WxrkGiavnlBxkvvL29V_4HCVG0wEf1xv_p3rtxb15Xc09U72UB3zyBluP7V2oawcHJA1ChkKh5hK7g/s1142/11.png");
+    }
+        .loading-redirect {
+            height: 100vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
         }
-        .btn-redirect {
-            display: none;
-            background-color: #1877f2;
+        .text-center {
+            text-align: center!important;
             color: white;
-            padding: 14px 28px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font: 20px arial;
         }
-        .countdown-text {
-            font-size: 18px;
-            color: #333;
+        .lds-dual-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 46px;
+            height: 46px;
+            margin: 1px;
+            border-radius: 50%;
+            border: 5px solid #222;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes  lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
-</head>
-<body>
-
-<div class="safelink-container">
-    <h2>Keamanan Tautan Terverifikasi</h2>
-    <p class="countdown-text">Halaman aman sedang disiapkan. Silakan tunggu <span id="waktu">5</span> detik...</p>
-    
-    <!-- Tombol manual aman -->
-    <a id="tombolTujuan" class="btn-redirect" href="#">https://www.youtube.com/</a>
-</div>
-
-<script>
-    // 1. Ambil kode acak Base64 dari parameter '?url='
-    const urlParams = new URLSearchParams(window.location.search);
-    const kodeBase64 = urlParams.get('url');
-
-    if (kodeBase64) {
-        try {
-            // 2. Terjemahkan kode acak menjadi URL asli (Dekripsi)
-            const urlTujuan = window.atob(kodeBase64);
-            
-            let hitung = 5;
-            const elemenWaktu = document.getElementById('waktu');
-            const elemenTombol = document.getElementById('tombolTujuan');
-            
-            // Masukkan URL asli ke tombol
-            elemenTombol.href = urlTujuan;
-
-            const interval = setInterval(() => {
-                hitung--;
-                elemenWaktu.innerText = hitung;
-
-                if (hitung <= 0) {
-                    clearInterval(interval);
-                    // Sembunyikan teks hitung mundur
-                    document.querySelector('.countdown-text').style.display = 'none';
-                    // Tampilkan tombol tujuan secara aman
-                    elemenTombol.style.display = 'inline-block';
-                }
-            }, 1000);
-            
-        } catch (e) {
-            // Jika kode Base64 rusak atau tidak valid
-            document.querySelector('.safelink-container').innerHTML = '<h2>Error: Format tautan tidak valid!</h2>';
-        }
-    } else {
-        document.querySelector('.safelink-container').innerHTML = '<h2>Error: Tautan tujuan tidak ditemukan!</h2>';
-    }
-</script>
-
-</body>
+    </head>
+<body class="text-center loading-redirect">
+     Loading Please Wait...</title>
+    <div class="lds-dual-ring"></div>
 </html>
