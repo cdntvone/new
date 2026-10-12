@@ -1,4 +1,0 @@
-User-Agent: *
-Disallow: 
-
-Sitemap: https://bigmovies.area4k.com/sitemap.xml
